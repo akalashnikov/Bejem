@@ -1,0 +1,15 @@
+# log in
+mysql --user=bejem_admin --password=bejem_password;
+
+# create database
+create database bejem_db;
+use bejem_db;
+create user 'bejem_admin'@'localhost' identified by 'bejem_password';
+grant all on *.* to 'bejem_admin'@'localhost';
+
+# show all databases
+show databases;
+
+# remove database
+drop database_name;
+ 
