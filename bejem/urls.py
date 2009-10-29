@@ -8,6 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     #(r'^index/$', ...),
     #(r'^registration/$', ...),
+    #(r'^login/$', ...),
     (r'^users/$', users.views.index),
     #(r'^users/[A-Za-z]+$', users.views.details),
     (r'^admin/', include(admin.site.urls)),
