@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     (r'^login/$', users.views.login),
     (r'^users/$', users.views.user_list),
     (r'^users/[A-Za-z]+$', users.views.user_list),
+    (r'^search/$', users.views.search),
     (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )
