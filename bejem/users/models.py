@@ -7,5 +7,8 @@ class User(models.Model):
     def __unicode__(self):
         return "%s %s" % (self.login, self.email)
 
+    class Meta:
+        ordering = ["login"]
+
     #class Admin:
     #    pass
