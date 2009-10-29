@@ -6,11 +6,11 @@ import users.views
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    #(r'^index/$', ...),
-    #(r'^registration/$', ...),
-    #(r'^login/$', ...),
-    (r'^users/$', users.views.index),
-    #(r'^users/[A-Za-z]+$', users.views.details),
+    (r'^$', users.views.index),
+    (r'^registration/$', users.views.registration),
+    (r'^login/$', users.views.login),
+    (r'^users/$', users.views.user_list),
+    (r'^users/[A-Za-z]+$', users.views.user_list),
     (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 )
