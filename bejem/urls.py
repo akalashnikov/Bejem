@@ -1,11 +1,15 @@
 from django.conf.urls.defaults import *
-from users.views import index
+#from users.views import index
+import users.views
 
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^users/', index),
-    (r'^admin/', include(admin.site.urls)),
-    (r'^admon/doc/', include('django.contrib.admindocs.urls')),
+    #(r'^index/$', ...),
+    #(r'^registration/$', ...),
+    (r'^users/$', users.views.index),
+    #(r'^users/[A-Za-z]+$', users.views.details),
+    (r'^admin/$', include(admin.site.urls)),
+    (r'^admin/doc/$', include('django.contrib.admindocs.urls')),
 )
