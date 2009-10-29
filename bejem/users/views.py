@@ -14,13 +14,17 @@ def index(request):
     return render_to_response('index.html', {'current_datetime': current_datetime})
 
 def registration(request):
-    # ...
-    return render_to_response('registration.html')
+    q_login = request.GET.get('q_login', '')
+    q_email = request.GET.get('q_email', '')
+    if q_login and q_email:
+        u = User(login=q_login, email=q_email)
+        u.save()
+    return render_to_response('registration.html', { 'q_login': q_login, 'q_email': q_email })
 
 def login(request):
     query = request.GET.get('q', '')
     result = (len(User.objects.filter(login=query)) != 0)
-    return render_to_response("login.html", { "result": result, "query": query })
+    return render_to_response('login.html', { 'result': result, 'query': query })
 
 def user_list(request):
     user_list = User.objects.all()
@@ -33,5 +37,5 @@ def search(request):
         results = User.objects.filter(qset).distinct()
     else:
         results = []
-    return render_to_response("search.html", { "results": results, "query": query })
+    return render_to_response('search.html', { 'results': results, 'query': query })
 
