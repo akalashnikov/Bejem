@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% if query %} Result{% endif %} {% endblock %}
+
+{% block content %}
+    <p>Login page.</p>
+
+	<p>
+        <form action="." method="GET">
+        <label for="q">Login: </label>
+        <input type="text" name="q" value="{{ query|escape }}">
+        <input type="submit" value="Submit">
+        </form>
+    </p>
+
+    {% if query %}
+        <p>Result: "{{ query|escape }} login":</p>
+
+        {% if result %}
+            <p>Hello {{ query|escape }}</p>
+        {% else %}
+            <p>Visit <a href="http://127.0.0.1:8000/registration">registration</a> page</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+
+<p>Index page. By the way, it is now {{ current_datetime }}.</p>
+<p>
+    <li><a href="http://127.0.0.1:8000/registration">registration</a></li>
+    <li><a href="http://127.0.0.1:8000/login">login</a></li>
+	<li><a href="http://127.0.0.1:8000/users">users</a></li>
+    <li><a href="http://127.0.0.1:8000/search">search</a></li>
+    <li><a href="http://127.0.0.1:8000/admin">admin</a></li>
+
+</p>
+
+{% endblock %}
