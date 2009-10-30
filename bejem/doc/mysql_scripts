@@ -1,6 +1,9 @@
 # log in
 mysql --user=bejem_admin --password=bejem_password;
 
+#akalashnikov root account
+#mysql --user=root --password=root;
+
 # create database
 create database bejem_db;
 use bejem_db;
