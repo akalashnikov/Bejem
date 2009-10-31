@@ -5,10 +5,34 @@
 </head>
 <body>
     <h1><a href="http://127.0.0.1:8000">Bejem</a></h1>
-    {% block content %}{% endblock %}
-    {% block footer %}
-    <hr>
-    <p>:)</p>
-    {% endblock %}
+    {% if user %}
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}. <a href="http://127.0.0.1:8000/logout">Log out</a></p>
+        {% else %}
+            <p><a href="http://127.0.0.1:8000/login">Enter for registred users. </a>No account. <a href="http://127.0.0.1:8000/registration">Register</a></p>
+        {% endif %}
+    {% endif %}
+    <table>
+        <tr>
+            <td>
+                <p>
+                    {%if user.is_authenticated%}
+                        <li><a href="http://127.0.0.1:8000/users/{{ user.username}}">My page</a></li>
+                        <li><a href="http://127.0.0.1:8000/search">Search</a></li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li><a href="http://127.0.0.1:8000/admin">Admin</a></li>
+                    {% endif %}
+                </p>
+            </td>
+            <td>
+                {% block content %}{% endblock %}
+                {% block footer %}
+                <hr>
+                <p>:)</p>
+                {% endblock %}
+            </td>
+         </tr>
+    </table>
 </body>
 </html>

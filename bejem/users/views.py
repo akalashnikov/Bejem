@@ -3,6 +3,7 @@ import datetime
 #from django.template.loader import get_template
 #from django.template import Context
 #from django.http import HttpResponse
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -16,7 +17,7 @@ from bejem.users.models import User
 def index(request):
     current_datetime = datetime.datetime.now()
     #return render_to_response('users.html', locals())
-    return render_to_response('index.html', {'current_datetime': current_datetime})
+    return render_to_response('index.html', {'current_datetime': current_datetime},context_instance=RequestContext(request))
 
 def registration(request):
     q_login = request.GET.get('q_login', '')
@@ -45,9 +46,15 @@ def login(request):
     #result = (len(User.objects.filter(login=query)) != 0)
     return render_to_response('login.html', {'form': form})
 
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect("/")
+
+
+
 def user_list(request):
     user_list = User.objects.all()
-    return render_to_response('users.html', {'user_list': user_list})
+    return render_to_response('users.html', {'user_list': user_list},context_instance=RequestContext(request))
 
 def search(request):
     query = request.GET.get('q', '')
@@ -56,4 +63,4 @@ def search(request):
         results = User.objects.filter(qset).distinct()
     else:
         results = []
-    return render_to_response('search.html', { 'results': results, 'query': query })
+    return render_to_response('search.html', { 'results': results, 'query': query },context_instance=RequestContext(request))
