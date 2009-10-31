@@ -34,6 +34,11 @@ def login(request):
         if form.is_valid():
             login = form.cleaned_data['login']
             password = form.cleaned_data['password']
+            rememberMe = form.cleane_data['rememberMe']
+            if rememberMe:
+                request.session.set_expiry(NONE)
+            else:
+                request.session.set_expiry(60)
             user = auth.authenticate(username=login, password=password)
             if user is not None and user.is_active:
                 auth.login(request, user)
