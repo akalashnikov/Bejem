@@ -5,6 +5,11 @@ import datetime
 #from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.contrib import auth
+from forms import LoginForm
+
+
 
 from bejem.users.models import User
 
@@ -22,9 +27,23 @@ def registration(request):
     return render_to_response('registration.html', { 'q_login': q_login, 'q_email': q_email })
 
 def login(request):
-    query = request.GET.get('q', '')
-    result = (len(User.objects.filter(login=query)) != 0)
-    return render_to_response('login.html', { 'result': result, 'query': query })
+    #query = request.GET.get('q', '')
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            login = form.cleaned_data['login']
+            password = form.cleaned_data['password']
+            user = auth.authenticate(username=login, password=password)
+            if user is not None and user.is_active:
+                auth.login(request, user)
+                return HttpResponseRedirect("/users/"+login)
+            else:
+                return HttpResponseRedirect("/registration")
+            query = request.POST['username']
+    else:
+        form = LoginForm()
+    #result = (len(User.objects.filter(login=query)) != 0)
+    return render_to_response('login.html', {'form': form})
 
 def user_list(request):
     user_list = User.objects.all()
