@@ -17,28 +17,31 @@
             </p>
         {% endif %}
     {% endif %}
+
     <table>
         <tr>
             <td>
                 <p>
                     {%if user.is_authenticated%}
-                        <li><a href="http://127.0.0.1:8000/users/{{ user.username}}">My page</a></li>
-                        <li><a href="http://127.0.0.1:8000/search">Search</a></li>
+                        <br><a href="http://127.0.0.1:8000/users/{{ user.username}}">My page</a></br>
+                        <br><a href="http://127.0.0.1:8000/search">Search</a></br>
                     {% endif %}
                     {% if user.is_superuser %}
-                        <li><a href="http://127.0.0.1:8000/admin">Admin</a></li>
+                        <br><a href="http://127.0.0.1:8000/admin">Admin</a></br>
                     {% endif %}
                 </p>
             </td>
             <td>
                 {% block content %}
                 {% endblock %}
-                {% block footer %}
-                <hr>
-                <p>;)</p>
-                {% endblock %}
             </td>
-         </tr>
+        </tr>
     </table>
+
+    <hr>
+
+    {% block footer %}
+    <p>;)</p>
+    {% endblock %}
 </body>
 </html>

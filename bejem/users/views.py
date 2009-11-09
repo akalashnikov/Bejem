@@ -38,7 +38,7 @@ def login(request):
             user = auth.authenticate(username=login, password=password)
             if user is not None and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect("/users/"+login)
+                return HttpResponseRedirect("/users/" + login)
             else:
                 return HttpResponseRedirect("/registration")
             query = request.POST['username']
