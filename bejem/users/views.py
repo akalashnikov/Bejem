@@ -13,8 +13,7 @@ from forms import LoginForm
 from bejem.users.models import User
 
 def index(request):
-    current_datetime = datetime.datetime.now()
-    return render_to_response('index.html', {'current_datetime': current_datetime},context_instance=RequestContext(request))
+    return render_to_response('index.html', {}, context_instance=RequestContext(request))
 
 def registration(request):
     q_login = request.GET.get('q_login', '')

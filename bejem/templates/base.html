@@ -7,9 +7,14 @@
     <h1><a href="http://127.0.0.1:8000">Bejem</a></h1>
     {% if user %}
         {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}. <a href="http://127.0.0.1:8000/logout">Log out</a></p>
+            <p>
+                Welcome, {{ user.username }}. <a href="http://127.0.0.1:8000/logout">Log out</a>
+            </p>
         {% else %}
-            <p><a href="http://127.0.0.1:8000/login">Enter for registred users. </a>No account. <a href="http://127.0.0.1:8000/registration">Register</a></p>
+            <p>
+                <a href="http://127.0.0.1:8000/login">Log in.</a>
+                <a href="http://127.0.0.1:8000/registration">Register</a>
+            </p>
         {% endif %}
     {% endif %}
     <table>
@@ -26,9 +31,10 @@
                 </p>
             </td>
             <td>
-                {% block content %}{% endblock %}
+                {% block content %}
+                {% endblock %}
                 {% block footer %}
-                <hr>
+                <hr></hr>
                 <p>;)</p>
                 {% endblock %}
             </td>
