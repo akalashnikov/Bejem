@@ -1,4 +1,8 @@
-import os.path
+import os
+
+# look at: http://habrahabr.ru/blogs/django/65170/
+def rel(*x):
+  return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
 # Django settings for bejem project
 
