@@ -10,13 +10,10 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from forms import LoginForm
 
-
-
 from bejem.users.models import User
 
 def index(request):
     current_datetime = datetime.datetime.now()
-    #return render_to_response('users.html', locals())
     return render_to_response('index.html', {'current_datetime': current_datetime},context_instance=RequestContext(request))
 
 def registration(request):
@@ -55,11 +52,9 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
 
-
-
 def user_list(request):
     user_list = User.objects.all()
-    return render_to_response('users.html', {'user_list': user_list},context_instance=RequestContext(request))
+    return render_to_response('users.html', {'user_list': user_list}, context_instance=RequestContext(request))
 
 def search(request):
     query = request.GET.get('q', '')
