@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.contrib import admin
+
 #from users.views import index
 import users.views
 
