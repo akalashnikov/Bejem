@@ -1,25 +1,85 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>{% block title %}{% endblock %}</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="/media/default.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h1><a href="http://127.0.0.1:8000">Bejem</a></h1>
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="http://127.0.0.1:8000">bejem<sup></sup></a></h1>
+		<h2>powered</h2>
+	</div>
+	<div id="menu">
+		<ul>
+			<li class="active"><a href="http://127.0.0.1:8000">homepage</a></li>
+            {%if user.is_authenticated%}
+                <li><a href="http://127.0.0.1:8000/users/{{ user.username}}">mypage</a></li>
+            {% endif %}
+			<li><a href="http://127.0.0.1:8000/registration">register</a></li>
+			<li><a href="http://127.0.0.1:8000/login">login</a></li>
+			<li><a href="http://127.0.0.1:8000/logout">logout</a></li>
+            {% if user.is_superuser %}
+                <li><a href="http://127.0.0.1:8000/admin">admin</a></li>
+            {% endif %}
+			<li><a href="#">about us</a></li>
+			<li><a href="#">contact us</a></li>
+		</ul>
+	</div>
+</div>
+<!-- end header -->
 
-    <table border=1 cellspacing=0 cellpadding=5>
-        <tr>
-            <td align=left valign=top style="background-color: #ffff33" width=128>
-                <ul>
-                    {%if user.is_authenticated%}
-                        <li><a href="http://127.0.0.1:8000/users/{{ user.username}}">My page</a></li>
-                        <li><a href="http://127.0.0.1:8000/search">Search</a></li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li><a href="http://127.0.0.1:8000/admin">Admin</a></li>
-                    {% endif %}
-                </ul>
-            </td>
-            <td align=left valign=top width=570>
+<!-- start page -->
+<div id="page">
+	<!-- start sidebar -->
+	<div id="sidebar">
+		<ul>
+			<li id="search">
+				<h2><b class="text1">Search</b></h2>
+				<form method="get" action="">
+					<fieldset>
+					<input type="text" id="s" name="s" value="" />
+					<input type="submit" id="x" value="Search" />
+					</fieldset>
+				</form>
+			</li>
+			<li>
+				<h2><strong>new</strong> posts</h2>
+				<ul>
+					<li><a href="#">post 1</a></li>
+					<li><a href="#">post 2</a></li>
+					<li><a href="#">post 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<h2><b>voted</b> posts</h2>
+				<ul>
+					<li><a href="#">post 1</a></li>
+					<li><a href="#">post 2</a></li>
+					<li><a href="#">post 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<h2><b>new</b> users</h2>
+				<ul>
+					<li><a href="#">post 1</a></li>
+					<li><a href="#">post 2</a></li>
+					<li><a href="#">post 3</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<!-- end sidebar -->
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><b>Welcome to</b> bejem</h2>
+			<p class="date">Feb<b>11</b></p>
+			<div class="entry">
                 {% if user %}
                     {% if user.is_authenticated %}
                         <p>
@@ -35,14 +95,36 @@
 
                 {% block content %}
                 {% endblock %}
-            </td>
-        </tr>
-    </table>
-
-    <hr>
-
+			</div>
+			<div class="meta">
+				<p class="links"><a href="#" class="more">Read full article</a></p>
+			</div>
+		</div>
+	</div>
+	<!-- end content -->
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end page -->
+<!-- start footer -->
+<div id="footer">
     {% block footer %}
     <p>;)</p>
     {% endblock %}
+    <!--
+	<div id="footer-menu">
+		<ul>
+			<li class="active"><a href="#">homepage</a></li>
+			<li><a href="#">register</a></li>
+			<li><a href="#">login</a></li>
+			<li><a href="#">logout</a></li>
+			<li><a href="#">admin</a></li>
+			<li><a href="#">about us</a></li>
+			<li><a href="#">contact us</a></li>
+		</ul>
+	</div>
+    -->
+	<p id="legal">(c) 2009</p>
+</div>
+<!-- end footer -->
 </body>
 </html>
