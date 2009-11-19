@@ -8,9 +8,10 @@ from django.shortcuts import render_to_response
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.contrib import auth
-from forms import LoginForm
-
+from django.contrib.auth.decorators import login_required
 from bejem.users.models import User
+from bejem.users.forms import LoginForm
+
 
 def index(request):
     return render_to_response('index.html', {}, context_instance=RequestContext(request))
@@ -51,6 +52,7 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
 
+@login_required
 def user_list(request):
     user_list = User.objects.all()
     return render_to_response('users.html', {'user_list': user_list}, context_instance=RequestContext(request))

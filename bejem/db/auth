@@ -1,0 +1,13 @@
+#root account
+mysql --user=bejem_admin --password=bejem_password;
+
+#akalashnikov root account
+#mysql --user=root --password=root;
+
+#groups
+group = Group.objects.create(name='Administrators')
+group.save()
+group = Group.objects.create(name='SuperUsers')
+group.save()
+group = Group.objects.create(name='Users')
+group.save()
