@@ -22,7 +22,9 @@
             {% endif %}
 			<li><a href="http://127.0.0.1:8000/registration">register</a></li>
 			<li><a href="http://127.0.0.1:8000/login">login</a></li>
-			<li><a href="http://127.0.0.1:8000/logout">logout</a></li>
+            {%if user.is_authenticated%}
+                <li><a href="http://127.0.0.1:8000/logout">logout</a></li>
+            {% endif %}
             {% if user.is_superuser %}
                 <li><a href="http://127.0.0.1:8000/admin">admin</a></li>
             {% endif %}
