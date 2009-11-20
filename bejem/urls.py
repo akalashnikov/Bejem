@@ -6,9 +6,6 @@ from django.contrib import admin
 import settings
 import users.views
 
-#css: is it right?
-media = settings.rel('media')
-
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -21,6 +18,14 @@ urlpatterns = patterns('',
     (r'^search/$', users.views.search),
     (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': media }),
 )
- 
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': settings.rel('media') }),
+    )
+
+#if settings.DEBUG:
+#    urlpatterns += patterns('',
+#        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+#    )
