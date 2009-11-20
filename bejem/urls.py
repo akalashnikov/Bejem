@@ -3,6 +3,8 @@ import os
 from django.conf.urls.defaults import *
 from django.contrib import admin
 
+#from registration import views
+
 import settings
 import users.views
 
@@ -18,14 +20,13 @@ urlpatterns = patterns('',
     (r'^search/$', users.views.search),
     (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^accounts/', include('registration.urls')),
 )
+
+#    url(r'/register', 'registration.views.register', {'form': RegistrationFormUniqueEmail}, name='registration_register'),
+#    url('', include('registration.urls')),
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': settings.rel('media') }),
+        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
     )
-
-#if settings.DEBUG:
-#    urlpatterns += patterns('',
-#        (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-#    )

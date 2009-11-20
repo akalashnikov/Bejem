@@ -1,4 +1,5 @@
 import os
+# -*- coding: utf-8 -*-
 
 # look at: http://habrahabr.ru/blogs/django/65170/
 def rel(*x):
@@ -42,19 +43,20 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
-#MEDIA_ROOT = rel('media')
+MEDIA_ROOT = rel('media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = ''
+#MEDIA_URL = '/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-#ADMIN_MEDIA_PREFIX = '/media/'
-ADMIN_MEDIA_PREFIX = rel("media")
+ADMIN_MEDIA_PREFIX = '/i/'
+#ADMIN_MEDIA_PREFIX = rel("media")
+#ADMIN_MEDIA_PREFIX = ''
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '-*@%e7v=6ws(^(9c88uw%1o=%)q%5o*!s101n+87z8_%#p0l_w'
@@ -85,6 +87,24 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
 )
 
+"""
+# look at: http://habrahabr.ru/blogs/django/74165/
+# кол-во дней для хранения кода активации
+ACCOUNT_ACTIVATION_DAYS = 2
+
+# для отправки кода активации
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'info@google.ru'
+
+INSTALLED_APPS = (
+    'registration',
+)
+"""
 
 INSTALLED_APPS = (
     'django.contrib.auth',
