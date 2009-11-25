@@ -8,6 +8,8 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 #from django.contrib.auth.models import User
 from django.contrib.auth import models
+from django.contrib.auth.views import redirect_to_login
+
 
 from bejem.users.forms import LoginForm
 from bejem.users.forms import RegistrationForm
@@ -17,6 +19,12 @@ from bejem.users.models import User
 
 def index(request):
     return render_to_response('index.html', {}, context_instance=RequestContext(request))
+
+@login_required
+def secret(request):
+   # if not request.user.is_authenticated():
+   #     return redirect_to_login(request.path)
+    return render_to_response('secret.html', {}, context_instance=RequestContext(request))
 
 def registration(request):
     if request.method == 'POST':
@@ -36,7 +44,7 @@ def registration(request):
     return render_to_response('registration.html', {'form': form})
 
 def login(request):
-    #query = request.GET.get('q', '')
+    next = request.GET.get('next', None)
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -50,14 +58,19 @@ def login(request):
             user = auth.authenticate(username=login, password=password)
             if user is not None and user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect("/users/" + login)
+                if not next:
+                     return HttpResponseRedirect("/users/" + login)
+                else:
+                    return HttpResponseRedirect(next)
             else:
                 return HttpResponseRedirect("/registration")
-            query = request.POST['username']
     else:
         form = LoginForm()
-    #result = (len(User.objects.filter(login=query)) != 0)
-    return render_to_response('login.html', {'form': form})
+    if not next:
+        actionForm = '/login/'
+    else:
+        actionForm = '/login/?next='+next
+    return render_to_response('login.html', {'form': form,'next' : actionForm})
 
 def logout(request):
     auth.logout(request)
@@ -68,6 +81,7 @@ def user_list(request):
     user_list = User.objects.all()
     return render_to_response('users.html', {'user_list': user_list}, context_instance=RequestContext(request))
 
+@login_required
 def search(request):
     query = request.GET.get('q', '')
     if query:

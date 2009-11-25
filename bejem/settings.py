@@ -115,3 +115,5 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'bejem.users',
 )
+
+LOGIN_URL = '/login/'
