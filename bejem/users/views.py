@@ -1,28 +1,39 @@
 import datetime
 
-#from django.template.loader import get_template
-#from django.template import Context
-#from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from bejem.users.models import User
-from bejem.users.forms import LoginForm
+#from django.contrib.auth.models import User
+from django.contrib.auth import models
 
+from bejem.users.forms import LoginForm
+from bejem.users.forms import RegistrationForm
+
+#TODO remove
+from bejem.users.models import User
 
 def index(request):
     return render_to_response('index.html', {}, context_instance=RequestContext(request))
 
 def registration(request):
-    q_login = request.GET.get('q_login', '')
-    q_email = request.GET.get('q_email', '')
-    if q_login and q_email:
-        u = User(login=q_login, email=q_email)
-        u.save()
-    return render_to_response('registration.html', { 'q_login': q_login, 'q_email': q_email })
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            login = form.cleaned_data['login']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            passwordAgain = form.cleaned_data['passwordAgain']
+            #TODO check unique login and password == passwordAgain
+            user = models.User.objects.create_user(username=login, email=email, password=password)
+            user.save()
+        else:
+            return HttpResponseRedirect("/registration")
+    else:
+        form = RegistrationForm()
+    return render_to_response('registration.html', {'form': form})
 
 def login(request):
     #query = request.GET.get('q', '')

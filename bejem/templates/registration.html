@@ -1,21 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Registration{% if q_login and q_email %} Result{% endif %} {% endblock %}
+{% block title %}
+    Registration{% if login and email %} Result{% endif %}
+{% endblock %}
 
 {% block content %}
-    <p>Registration</p>
-
 	<p>
-        <form action="." method="GET">
-            <label for="q_login">Login: </label>
-            <input type="text" name="q_login" value="{{ q_login|escape }}">
-            <label for="q_email">Email: </label>
-            <input type="text" name="q_email" value="{{ q_email|escape }}">
-            <input type="submit" value="Submit">
+        <form action="." method="POST">
+        <table>
+            {{ form.as_table }}
+        </table>
+        <p><input type="submit" value="Registration"></p>
         </form>
     </p>
 
-    {% if q_login and q_email %}
-        <p>Hello {{ q_login|escape }}, you was added.</p>
+    {% if login and email %}
+        <p>Hello {{ login|escape }}, you were added.</p>
     {% endif %}
 {% endblock %}
