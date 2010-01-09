@@ -54,7 +54,7 @@ MEDIA_URL = ''
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/i/'
+ADMIN_MEDIA_PREFIX = '/mediap/'
 #ADMIN_MEDIA_PREFIX = rel("media")
 #ADMIN_MEDIA_PREFIX = ''
 
@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'bejem.users',
+    'bejem.dics'
 )
 
 LOGIN_URL = '/login/'

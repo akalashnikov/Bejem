@@ -1,21 +1,19 @@
-import datetime
-
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-#from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from django.contrib.auth import models
-from django.contrib.auth.views import redirect_to_login
+#from django.contrib.auth.views import redirect_to_login
 
+from bejem.users.models import Member
 
 from bejem.users.forms import LoginForm
+from bejem.users.forms import ProfileForm
 from bejem.users.forms import RegistrationForm
 
-#TODO remove
-from bejem.users.models import User
 
 def index(request):
     return render_to_response('index.html', {}, context_instance=RequestContext(request))
@@ -26,6 +24,26 @@ def secret(request):
    #     return redirect_to_login(request.path)
     return render_to_response('secret.html', {}, context_instance=RequestContext(request))
 
+@login_required
+def profile(request, username):
+    profileUpdated = False
+    try:
+        member = Member.objects.get(username=username)
+    except:
+        member = None
+    else:
+        if request.method == 'POST':
+            form = ProfileForm(request.POST)
+            if form.is_valid():
+                member.sex = form.cleaned_data['sex']
+                member.city = form.cleaned_data['city']
+                member.save()
+                profileUpdated = True
+        else:
+            # raise ValueError(member.city.id)
+            form = ProfileForm(initial={'sex' : member.sex, 'city' : member.city.id})
+    return render_to_response('profile.html', {'form': form, 'username': member, 'updated': profileUpdated}, context_instance=RequestContext(request))
+
 def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -35,8 +53,12 @@ def registration(request):
             password = form.cleaned_data['password']
             passwordAgain = form.cleaned_data['passwordAgain']
             #TODO check unique login and password == passwordAgain
-            user = models.User.objects.create_user(username=login, email=email, password=password)
-            user.save()
+            ###### akalashnikov change to member
+         #  user = models.User.objects.create_user(username=login, email=email, password=password)
+         #  user.save()
+            member = Member.objects.create_user(username=login, email=email, password=password)
+            member.save()
+            ######
         else:
             return HttpResponseRedirect("/registration")
     else:
@@ -54,8 +76,9 @@ def login(request):
             if rememberMe:
                 request.session.set_expiry(None)
             else:
-                request.session.set_expiry(0)
+                request.session.set_expiry(0)            
             user = auth.authenticate(username=login, password=password)
+          #  raise ValueError(user)
             if user is not None and user.is_active:
                 auth.login(request, user)
                 if not next:
@@ -77,8 +100,8 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 @login_required
-def user_list(request):
-    user_list = User.objects.all()
+def user_list(request,username):
+    user_list = User.objects.filter(username=username)
     return render_to_response('users.html', {'user_list': user_list}, context_instance=RequestContext(request))
 
 @login_required

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+{% if username %}
+        <p>Profile for "{{ username.username|escape }}"</p>
+{% else %}
+        <p>No such user</p>
+{% endif %}
+<p>
+        <form action={{username}} method="POST">
+        <table>
+            {{ form.as_table }}
+        </table>
+        <p><input type="submit" value="Refresh profile"></p>
+        </form>
+</p>
+{% if updated %}
+        <p>Profile updated</p>
+{% endif %}
+
+{% endblock %}

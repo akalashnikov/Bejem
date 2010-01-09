@@ -19,6 +19,7 @@
 			<li class="active"><a href="http://127.0.0.1:8000">homepage</a></li>
             {%if user.is_authenticated%}
                 <li><a href="http://127.0.0.1:8000/users/{{ user.username}}">mypage</a></li>
+                <li><a href="http://127.0.0.1:8000/profile/{{ user.username}}">profile</a></li>
             {% endif %}
 			<li><a href="http://127.0.0.1:8000/registration">register</a></li>
 			<li><a href="http://127.0.0.1:8000/login">login</a></li>
@@ -28,8 +29,6 @@
             {% if user.is_superuser %}
                 <li><a href="http://127.0.0.1:8000/admin">admin</a></li>
             {% endif %}
-			<li><a href="#">about us</a></li>
-			<li><a href="#">contact us</a></li>
 		</ul>
 	</div>
 </div>
@@ -39,6 +38,7 @@
 <div id="page">
 	<!-- start sidebar -->
 	<div id="sidebar">
+        <h4>left div</h4>
 		<ul>
 			<li id="search">
 				<h2><b class="text1">Search</b></h2>
@@ -57,7 +57,7 @@
 					<li><a href="#">post 3</a></li>
 				</ul>
 			</li>
-			<li>
+			<!--<li>
 				<h2><b>voted</b> posts</h2>
 				<ul>
 					<li><a href="#">post 1</a></li>
@@ -72,7 +72,7 @@
 					<li><a href="#">post 2</a></li>
 					<li><a href="#">post 3</a></li>
 				</ul>
-			</li>
+			</li>-->
 		</ul>
 	</div>
 	<!-- end sidebar -->
@@ -82,6 +82,7 @@
 			<h2 class="title"><b>Welcome to</b> bejem</h2>
 			<p class="date">Feb<b>11</b></p>
 			<div class="entry">
+                <h1> MAIN DIV </h1>                
                 {% if user %}
                     {% if user.is_authenticated %}
                         <p>
@@ -97,10 +98,13 @@
 
                 {% block content %}
                 {% endblock %}
-			</div>
-			<div class="meta">
+
+			</div>
+			<!--
+            <div class="meta">
 				<p class="links"><a href="#" class="more">Read full article</a></p>
 			</div>
+            -->
 		</div>
 	</div>
 	<!-- end content -->

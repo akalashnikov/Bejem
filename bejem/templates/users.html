@@ -3,4 +3,15 @@
 {% block title %}Users{% endblock %}
 
 {% block content %}
+
+        {% if user_list %}
+            <ul>
+            {% for user in user_list %}
+                <li>{{ user|escape }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No users found</p>
+        {% endif %}
+        
 {% endblock %}
